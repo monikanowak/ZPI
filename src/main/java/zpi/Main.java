@@ -1,11 +1,44 @@
 package main.java.zpi;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.List;
+
+import com.opencsv.CSVReader;
+import com.opencsv.bean.ColumnPositionMappingStrategy;
+import com.opencsv.bean.CsvToBean;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+
+    File file = new File("C:\\Users\\Artur\\Desktop\\projektzpi\\ZPI\\src\\main\\java\\zpi\\emps.csv");
+        System.out.println(file.exists());
+        CSVReader reader =  new CSVReader(new FileReader(file), ',');//(new FileReader("../src/main/java/zpi/emps.csv"), ',');
+
+        ColumnPositionMappingStrategy<DataFile> beanStrategy = new ColumnPositionMappingStrategy<DataFile>();
+        beanStrategy.setType(DataFile.class);
+        beanStrategy.setColumnMapping(new String[] {"czas","czas_trwania","komputer_zrodlowy","port_zrodlowy","komputer_docelowy","port_docelowy","protokol","liczba_pakietow","liczba_bajtow"});
+
+        CsvToBean<DataFile> csvToBean = new CsvToBean<DataFile>();
+
+        List<DataFile> dataFiles = csvToBean.parse(beanStrategy, reader);
+
+        System.out.println("tu");
+        System.out.println(dataFiles);
+
+
+
+
+
         NeuronLayer layer1 = new NeuronLayer(1, 3);
 
         NeuralNetSimple net = new NeuralNetSimple(layer1);
+
+
+
+
+
 
        // przykładowy zbiór danych trenujących
         double[][] inputs = new double[][]{
