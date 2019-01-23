@@ -25,7 +25,7 @@ public class NeuralNetSimple {
 
     public void train(double[][] inputs, double[][] outputs, int numberOfTrainingIterations) {
         for (int i = 0; i < numberOfTrainingIterations; ++i) {
-            // prześlij dane przez sieć
+            // prześlij dane przez siećŚ
             goThroughNet(inputs);
 
             // dopasuj wagi według error * input * output * (1 - output)

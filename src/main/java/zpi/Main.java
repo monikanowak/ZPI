@@ -12,10 +12,10 @@ import com.opencsv.bean.CsvToBean;
 
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("C:\\Users\\Artur\\Desktop\\projektzpi\\ZPI\\src\\main\\java\\zpi\\flows_prep.txt");
+    public static void main(String[] args) throws Exception {
+        File file = new File("C:\\Users\\L440\\Desktop\\ZPI-master\\src\\main\\java\\zpi\\flows_prep_tagged.csv");
         System.out.println(file.exists());
-        CSVReader reader = new CSVReader(new FileReader(file), ',');//(new FileReader("../src/main/java/zpi/emps.csv"), ',');
+        CSVReader reader = new CSVReader(new FileReader(file), ',');//(new FileReader("C:\Users\L440\Desktop\ZPI-master\src\main\java\zpi\flows_prep_tagged.csv"), ',');
 
         ColumnPositionMappingStrategy<DataFile> beanStrategy = new ColumnPositionMappingStrategy<DataFile>();
         beanStrategy.setType(DataFile.class);
@@ -28,6 +28,9 @@ public class Main {
         //System.out.println("tu");
         //System.out.println(dataFiles);
         System.out.println(dataFiles.get(0));
+
+        TrainData tede = new TrainData();
+        tede.Train();
 
         PrintWriter zapis = new PrintWriter("wybraneDane.txt");
         for (DataFile object : dataFiles) {
