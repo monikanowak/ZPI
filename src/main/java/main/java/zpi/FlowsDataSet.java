@@ -1,46 +1,33 @@
 package main.java.zpi;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FlowsDataSet {
 
-    private final String czas;
-    private final String czas_trwania;
-    private final String komputer_zrodlowy;
-    private final String port_zrodlowy;
-    private final String komputer_docelowy;
-    private final String port_docelowy;
-    private final String protokol;
-    private final String liczba_pakietow;
-    private final String liczba_bajtow;
+    public final float czas;
+    private final float liczba_pakietow;
+    private final float liczba_bajtow;
+    public final float klasyfikator;
 
     private final List<String[]> x = new ArrayList<>();
     private final List<String[]> y = new ArrayList<>();
 
     public FlowsDataSet() throws IOException {
-        try(InputStream is = FlowsDataSet.class.getResourceAsStream("flows_prep_tagged.csv")) {
+        try(InputStream is = new FileInputStream("C:\\Users\\Agata\\Downloads\\Projekt\\src\\main\\java\\zpi\\flows_prep_tagged_cud.csv")) {
             try(BufferedReader br = new BufferedReader(new InputStreamReader(is, "ASCII"))) {
                 String[]  meta_columns = br.readLine().split(",");
-                czas = meta_columns[0];
-                czas_trwania=meta_columns[1];
-                komputer_zrodlowy=meta_columns[2];
-                port_zrodlowy=meta_columns[3];
-                komputer_docelowy=meta_columns[4];
-                port_docelowy=meta_columns[5];
-                protokol=meta_columns[6];
-                liczba_pakietow=meta_columns[7];
-                liczba_bajtow=meta_columns[8];
+                czas = Float.parseFloat(meta_columns[0]);
+                liczba_pakietow = Float.parseFloat(meta_columns[1]);
+                liczba_bajtow = Float.parseFloat(meta_columns[2]);
+                klasyfikator = Float.parseFloat(meta_columns[3]);
                 br.readLine();
 
                 for(String line; (line = br.readLine()) != null; ) {
                     String[] columns = line.split(",");
-                    x.add(new String[] { columns[0], columns[1], columns[2], columns[3], columns[4], columns[5], columns[6], columns[7], columns[8] });
-                    y.add(new String[] { columns[9] });
+                    x.add(new String[] { columns[0], columns[1], columns[2] });
+                    y.add(new String[] { columns[3] });
                 }
             }
         }

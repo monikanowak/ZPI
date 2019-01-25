@@ -1,19 +1,23 @@
 package main.java.zpi;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.List;
-import java.io.PrintWriter;
 
 import com.opencsv.CSVReader;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import java.io.FileReader;
+import java.util.List;
+import java.io.PrintWriter;
+
+
+
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        File file = new File("C:\\Users\\L440\\Desktop\\ZPI-master\\src\\main\\java\\zpi\\flows_prep_tagged.csv");
+        File file = new File("C:\\Users\\Agata\\Downloads\\Projekt\\src\\main\\java\\zpi\\flows_25.csv");
         System.out.println(file.exists());
         CSVReader reader = new CSVReader(new FileReader(file), ',');//(new FileReader("C:\Users\L440\Desktop\ZPI-master\src\main\java\zpi\flows_prep_tagged.csv"), ',');
 
