@@ -92,9 +92,12 @@ public class TrainData {
         Assign assign_b3 = new Assign(scope.WithOpName("assign_b3"), b3.asInput(), rb3.asInput());
 
         // Fully connecter layers with an Tanh activation function
-        Tanh layer_1 = new Tanh(scope, new Tanh(scope, new Add(scope, new MatMul(scope, x.asInput(), w1.asInput()).asInput(), b1.asInput()).asInput()).asInput());
-        Tanh layer_2 = new Tanh(scope, new Add(scope, new MatMul(scope, layer_1.asInput(), w2.asInput()).asInput(), b2.asInput()).asInput());
-        Tanh layer_3 = new Tanh(scope, new Add(scope, new MatMul(scope, layer_2.asInput(), w3.asInput()).asInput(), b3.asInput()).asInput());
+        Tanh layer_1 = new Tanh(scope, new Tanh(scope, new Add(scope,
+                new MatMul(scope, x.asInput(), w1.asInput()).asInput(), b1.asInput()).asInput()).asInput());
+        Tanh layer_2 = new Tanh(scope, new Add(scope,
+                new MatMul(scope, layer_1.asInput(), w2.asInput()).asInput(), b2.asInput()).asInput());
+        Tanh layer_3 = new Tanh(scope, new Add(scope,
+                new MatMul(scope, layer_2.asInput(), w3.asInput()).asInput(), b3.asInput()).asInput());
 
         // Weight regularization
         L2Loss l1 = new L2Loss(scope, w1.asInput());
@@ -117,12 +120,18 @@ public class TrainData {
 
         // Update the weight and bias values using gradient descent
         Input alpha = new Input(Const(scope.WithOpName("alpha"), 0.01f));
-        ApplyGradientDescent apply_w1 = new ApplyGradientDescent(scope.WithOpName("apply_w1"), w1.asInput(), alpha, new Input(node_grad_outputs.get(0)));
-        ApplyGradientDescent apply_w2 = new ApplyGradientDescent(scope.WithOpName("apply_w2"), w2.asInput(), alpha, new Input(node_grad_outputs.get(1)));
-        ApplyGradientDescent apply_w3 = new ApplyGradientDescent(scope.WithOpName("apply_w3"), w3.asInput(), alpha, new Input(node_grad_outputs.get(2)));
-        ApplyGradientDescent apply_b1 = new ApplyGradientDescent(scope.WithOpName("apply_b1"), b1.asInput(), alpha, new Input(node_grad_outputs.get(3)));
-        ApplyGradientDescent apply_b2 = new ApplyGradientDescent(scope.WithOpName("apply_b2"), b2.asInput(), alpha, new Input(node_grad_outputs.get(4)));
-        ApplyGradientDescent apply_b3 = new ApplyGradientDescent(scope.WithOpName("apply_b3"), b3.asInput(), alpha, new Input(node_grad_outputs.get(5)));
+        ApplyGradientDescent apply_w1 = new ApplyGradientDescent(scope.WithOpName("apply_w1"),
+                w1.asInput(), alpha, new Input(node_grad_outputs.get(0)));
+        ApplyGradientDescent apply_w2 = new ApplyGradientDescent(scope.WithOpName("apply_w2"),
+                w2.asInput(), alpha, new Input(node_grad_outputs.get(1)));
+        ApplyGradientDescent apply_w3 = new ApplyGradientDescent(scope.WithOpName("apply_w3"),
+                w3.asInput(), alpha, new Input(node_grad_outputs.get(2)));
+        ApplyGradientDescent apply_b1 = new ApplyGradientDescent(scope.WithOpName("apply_b1"),
+                b1.asInput(), alpha, new Input(node_grad_outputs.get(3)));
+        ApplyGradientDescent apply_b2 = new ApplyGradientDescent(scope.WithOpName("apply_b2"),
+                b2.asInput(), alpha, new Input(node_grad_outputs.get(4)));
+        ApplyGradientDescent apply_b3 = new ApplyGradientDescent(scope.WithOpName("apply_b3"),
+                b3.asInput(), alpha, new Input(node_grad_outputs.get(5)));
 
         // Build a graph definition object
         GraphDef def = new GraphDef();
